@@ -1,0 +1,139 @@
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgba(241, 240, 240, 0.241) !important;
+}
+.container{
+    flex: 1;
+}
+
+.navbar{
+    /* height: 5rem; */
+    background-color:white;
+}
+.fa-regular{
+    color: rgba(193, 69, 44, 0.915);
+    font-size: 2rem;
+}
+
+/* footer */
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f-info{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color: hsla(0, 2%, 60%, 0.132);
+    height: 8rem;
+    vertical-align: cneter;
+    justify-content: center;
+}
+.f-info-socials{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.f-info-socials i{
+    font-size: 1.3rem;
+    margin-right: 1rem;
+    display: felx;
+    align-items: center;
+    vertical-align: cneter;
+    justify-content: center;
+}
+.f-info-links,.f-info-brand{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* cards */
+
+.listing-card{
+    border:none !important;
+    margin-bottom: 2rem !important;
+}
+.card-body{
+    padding: 0rem !important;
+}
+.card-img-top{
+    border-radius:1rem !important;
+    width: 100% !important;
+
+}
+.card-text p{
+    font-weight: 400 !important;
+}
+.listing-link{
+    text-decoration: none;
+}
+
+
+/* card Effect */
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* new form */
+
+.add-btn{
+    background-color: rgba(193, 69, 44, 0.915) !important;
+    border: none !important;
+    padding: 0.4rem 1rem !important;
+    font-size: large;
+}
+
+/* Show Listing */
+
+.show-img{
+    height: 37vh;
+}
+.btns{
+    display: flex;
+}
+.btn-dark1{
+    background-color: rgba(193, 69, 44, 0.778) !important;
+    border: none !important;
+}
+
+.btn-dark1:hover{
+    background-color:  rgba(193, 69, 44, 0.915) !important;
+    border: none !important;
+}
+
+.btn-dark2{
+    background-color: rgba(30, 28, 28, 0.763) !important;
+    border: none !important;
+}
+
+.btn-dark2:hover{
+    background-color: rgba(37, 34, 34, 0.871) !important;
+    border: none !important;
+}
+
+/* review card */
+.review-card{
+    margin-right: 4.6rem !important;
+    margin-bottom: 2rem !important;
+}
+
+  /* Map  */
+
+#map{
+    width: 80vh;
+    height: 400px;
+}

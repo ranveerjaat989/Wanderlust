@@ -1,0 +1,135 @@
+<% layout('/layouts/boilerplate')%>
+<%=success%>
+<style>
+    #filters{
+        display: flex;
+        flex-wrap:wrap;
+        align-items: center;
+    }
+    .filter{
+        text-align: center;
+        margin-top: 2rem;
+        margin-right:2rem;
+        opacity:0.7;
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor:pointer;
+    }
+    .filter p{
+        font-size:0.8rem;
+    }
+    .tex-info{
+        display: none;
+    }
+    .text-toggle{
+        border:1px solid black;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        padding:5px 8px;
+        margin-left: 3rem;
+        opacity: 0.7;
+    }
+    .text-toggle:hover{
+        opacity: 1;
+    }
+</style>
+<body>
+    <!-- <h1>All Listings</h1> -->
+    <!-- <form method="get" action="/listing/new">
+        <button>Create Listing</button>
+    </form> -->
+   <div id="filters">
+    <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Room</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic cities</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountatains</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>Castles</p>
+        </div>
+
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing Pools</p>
+        </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </div>
+    
+            <div class="filter">
+                <div><i class="fa-solid fa-cow"></i></div>
+                <p>Farms</p>
+            </div>
+    
+            <div class="filter">
+                <div><i class="fa-solid fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-igloo"></i></div>
+                <p>Domes</p>
+            </div>
+    
+          
+        <div class="text-toggle">
+            <div class=" form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Display total After taxes</label>
+              </div>
+              
+        </div>
+   </div>
+  
+        
+   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 ">
+         <%for(let listing of allListings) {%>
+            <a href="/listings/<%=listing.id%>" class="listing-link">
+                <div class="card listing-card col" style="width: 20rem;">
+                    <img src="<%= listing.image.url%>" class="card-img-top" alt="Listing-image" style="height: 20rem;">
+                    <div class="card-img-overlay">Click and Show</div>
+                    <div class="card-body">
+                        <p class="card-text"> <b>  <%=listing.title%></b>  <br />&#8377;<%= listing.price.toLocaleString("en-IN")  %> /night
+                            <i class="tex-info">&nbsp;+18% GST</i>
+                        </p>
+                    </div>
+                </div>
+            </a>
+           
+          <%}%>
+   </div>
+</body>
+
+<script>
+    let texSwitch=document.getElementById("flexSwitchCheckDefault");
+    texSwitch.addEventListener("click",()=>{
+        let texInfo=document.getElementsByClassName('tex-info');
+        for( info of texInfo)
+        {
+          if(info.style.display!="inline")
+          {
+            info.style.display="inline";
+          }
+          else{
+            info.style.display='none';
+          }
+        }
+    })
+</script>
