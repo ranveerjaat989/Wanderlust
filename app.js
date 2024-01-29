@@ -3,6 +3,7 @@ if(process.env.NODE_ENV!="production"){
 }
 
 const express=require('express');
+const app=express();
 const mongoose=require('mongoose');
 const methodOverride=require('method-override');
 const ejsMate=require('ejs-mate');
@@ -21,7 +22,6 @@ const User=require('./models/user.js');
 // const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl=process.env.ATLASDB_URL;
 
-const app=express();
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,"public")));
