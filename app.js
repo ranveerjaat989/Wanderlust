@@ -18,7 +18,7 @@ const path=require('path');
 const passport=require('passport');
 const LocalStrategy=require('passport-local');
 const User=require('./models/user.js');
-const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
+// const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl=process.env.ATLASDB_URL;
 
 const app=express();
@@ -29,7 +29,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 //===================Connecet with DB
-async function main(){
+ const main=async()=>{
     await mongoose.connect(dbUrl);
 }
 main()
@@ -49,12 +49,17 @@ const store=MongoStore.create({
     touchAfter:24*3600,
 });
 
-store.on("error",()=>{
-    console.log("ERROR in MONGO SESSION STORE", err)
-})
+
 const sessionOptions={
-    store,
     secret:process.env.SECRET,
+    store:MongoStore.create({
+        mongoUrl:dbUrl,
+        crypto:{
+            secret:process.env.SECRET,
+        },
+        touchAfter:24*3600,
+    }),
+   
     resave:false,
     saveUninitialized: true,
     cookie:{
@@ -63,6 +68,9 @@ const sessionOptions={
         httpOnly:true
     }
 }
+store.on("error",()=>{
+    console.log("ERROR in MONGO SESSION STORE", err)
+})
 //=======================Home Page
 // app.get('/',(req,res)=>{
 //     res.send('Yor are conncet with me!');
