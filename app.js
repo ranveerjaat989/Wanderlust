@@ -62,9 +62,9 @@ const sessionOptions={
         httpOnly:true
     }
 }
-store.on("error",()=>{
-    console.log("ERROR in MONGO SESSION STORE", err)
-})
+// store.on("error",()=>{
+//     console.log("ERROR in MONGO SESSION STORE", err)
+// })
 //=======================Home Page
 // app.get('/',(req,res)=>{
 //     res.send('Yor are conncet with me!');
