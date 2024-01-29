@@ -29,6 +29,9 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 //===================Connecet with DB
+async function main(){
+    await mongoose.connect(dbUrl);
+}
 main()
 .then(()=>{
     console.log('Connect to DB');
@@ -36,17 +39,15 @@ main()
 .catch((err)=>{
     console.log(err);
 })
-async function main(){
-    await mongoose.connect(dbUrl);
-}
+
 
 const store=MongoStore.create({
     mongoUrl:dbUrl,
     crypto:{
         secret:process.env.SECRET,
     },
-    touchAfter:24*3600
-})
+    touchAfter:24*3600,
+});
 
 store.on("error",()=>{
     console.log("ERROR in MONGO SESSION STORE", err)
