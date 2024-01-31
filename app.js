@@ -1,7 +1,6 @@
 if(process.env.NODE_ENV!="production"){
     require("dotenv").config();
 }
-
 const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
@@ -11,15 +10,14 @@ const ExpressError=require('./utils/ExpressError');
 const reviewsRouter=require('./routes/review.js');
 const listingsRouter=require('./routes/listing.js');
 const usersRouter=require('./routes/user.js');
-
-const session=require('express-session');
-const MongoStore=require('connect-mongo');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash=require('connect-flash');
 const path=require('path');
 const passport=require('passport');
 const LocalStrategy=require('passport-local');
 const User=require('./models/user.js');
-// const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
+ const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl=process.env.ATLASDB_URL;
 
 app.set('view engine', 'ejs');
@@ -29,9 +27,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 //===================Connecet with DB
- const main=async()=>{
+async function main(){
     await mongoose.connect(dbUrl);
 }
+// qvJwK0DEN2KAfPzM
 main()
 .then(()=>{
     console.log('Connect to DB');
@@ -40,20 +39,20 @@ main()
     console.log(err);
 })
 
-
-
-
+const store=MongoStore.create({
+    mongoUrl:dbUrl,
+    crypto:{
+        secret:process.env.SECRET,
+    },
+    touchAfter:24*3600,
+});
+store.on("error",()=>{
+    console.log("ERROR in MONGO SESSION STORE", err)
+})
 
 const sessionOptions={
     secret:process.env.SECRET,
-    store:MongoStore.create({
-        mongoUrl:dbUrl,
-        crypto:{
-            secret:process.env.SECRET,
-        },
-        touchAfter:24*3600,
-    }),
-   
+    store,
     resave:false,
     saveUninitialized: true,
     cookie:{
@@ -62,9 +61,7 @@ const sessionOptions={
         httpOnly:true
     }
 }
-// store.on("error",()=>{
-//     console.log("ERROR in MONGO SESSION STORE", err)
-// })
+
 //=======================Home Page
 // app.get('/',(req,res)=>{
 //     res.send('Yor are conncet with me!');
@@ -78,13 +75,13 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-
+passport.use(new LocalStrategy(User.authenticate()));
 
 app.use((req,res,next)=>{
+  //  console.log("hello")
     res.locals.success=req.flash('success');
     res.locals.error=req.flash('error');
     res.locals.currUser=req.user;
@@ -103,11 +100,10 @@ app.all('*',(req,res,next)=>{
 
 app.use((err,req,res,next)=>{
     let {statusCode=500,message='Somthing wentwrong!'}=err;
-    console.log(statusCode,message);
+    // console.log(statusCode,message);
     res.status(statusCode).render('listings/error.ejs',{message});
+    next();
 })
-
-
 
 //===================Start Server
 app.listen(8080,()=>{
