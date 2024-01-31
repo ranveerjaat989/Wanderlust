@@ -28,7 +28,7 @@ app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 //===================Connecet with DB
 async function main(){
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 // qvJwK0DEN2KAfPzM
 main()
@@ -40,7 +40,7 @@ main()
 })
 
 const store=MongoStore.create({
-    mongoUrl:MONGO_URL,
+    mongoUrl:dbUrl,
     crypto:{
         secret:process.env.SECRET,
     },
