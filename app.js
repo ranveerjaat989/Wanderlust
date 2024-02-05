@@ -28,7 +28,7 @@ app.use(methodOverride("_method"));
 app.engine('ejs',ejsMate);
 //===================Connecet with DB
 async function main(){
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(`${dbUrl}`);
 }
 // qvJwK0DEN2KAfPzM
 main()
