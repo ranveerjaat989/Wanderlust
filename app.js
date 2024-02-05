@@ -40,7 +40,7 @@ main()
 })
 
 const store=MongoStore.create({
-    mongoUrl:dbUrl,
+    mongoUrl:`${dbUrl}`,
     crypto:{
         secret:process.env.SECRET,
     },
